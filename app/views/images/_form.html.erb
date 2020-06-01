@@ -12,23 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :uploaded_by %>
-    <%= form.text_field :uploaded_by %>
-  </div>
-
-  <div class="field">
     <%= form.label :description %>
     <%= form.text_field :description %>
   </div>
 
   <div class="field">
-    <%= form.label :extension %>
-    <%= form.text_field :extension %>
-  </div>
-
-  <div class="field">
     <%= form.label :stream %>
-    <%= form.text_field :stream %>
+    <%= form.file_field :stream %>
   </div>
 
   <div class="actions">

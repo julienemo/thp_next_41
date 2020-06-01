@@ -1,30 +1,32 @@
 class ImagesController < ApplicationController
   before_action :set_image, only: [:show, :edit, :update, :destroy]
+  before_action :private_route, except: [:index]
+  before_action :define_current_user, except: [:index]
+  before_action :can_change_or_delete, only: [:edit, :update, :destroy]
 
-  # GET /images
-  # GET /images.json
   def index
     @images = Image.all
   end
 
-  # GET /images/1
-  # GET /images/1.json
   def show
+    @user = User.find(@image.uploaded_by_id).username
   end
 
-  # GET /images/new
   def new
     @image = Image.new
   end
 
-  # GET /images/1/edit
   def edit
   end
 
-  # POST /images
-  # POST /images.json
   def create
-    @image = Image.new(image_params)
+    permit_image_params
+    @image = Image.new(
+      uploaded_by: @user,
+      description: @description,
+      stream: Base64.strict_encode64(File.open(@image_stream.tempfile).read),
+      extension: @extension
+    )
 
     respond_to do |format|
       if @image.save
@@ -37,11 +39,16 @@ class ImagesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /images/1
-  # PATCH/PUT /images/1.json
   def update
+    permit_image_params
+
     respond_to do |format|
-      if @image.update(image_params)
+      if @image.update(
+      uploaded_by: @user,
+      description: @description,
+      stream: Base64.strict_encode64(File.open(@image_stream.tempfile).read),
+      extension: @extension
+      )
         format.html { redirect_to @image, notice: 'Image was successfully updated.' }
         format.json { render :show, status: :ok, location: @image }
       else
@@ -51,8 +58,6 @@ class ImagesController < ApplicationController
     end
   end
 
-  # DELETE /images/1
-  # DELETE /images/1.json
   def destroy
     @image.destroy
     respond_to do |format|
@@ -62,13 +67,25 @@ class ImagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_image
       @image = Image.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def image_params
-      params.require(:image).permit(:uploaded_by, :description, :extension, :stream)
+    def permit_image_params
+      @image_stream = params.require(:image).permit(:stream)[:stream]
+      @extension = @image_stream.original_filename.split(".")[-1]
+      @description = params.require(:image).permit(:description)[:description]
+    end
+
+    def define_current_user
+      @user = current_user
+    end
+
+    def can_change_or_delete
+      unless current_user == @image.uploaded_by
+        flash[:notice] = "You're not allowed for this action."
+        redirect_to image_path(@image)
+      end
     end
 end

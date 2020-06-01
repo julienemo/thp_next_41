@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(version: 2020_06_01_111225) do
   enable_extension "plpgsql"
 
   create_table "images", force: :cascade do |t|
-    t.string "uploaded_by", null: false
+    t.bigint "uploaded_by_id"
     t.string "description"
     t.string "extension", null: false
     t.binary "stream", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["extension"], name: "index_images_on_extension"
-    t.index ["uploaded_by"], name: "index_images_on_uploaded_by"
+    t.index ["uploaded_by_id"], name: "index_images_on_uploaded_by_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,4 +42,5 @@ ActiveRecord::Schema.define(version: 2020_06_01_111225) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  add_foreign_key "images", "users", column: "uploaded_by_id"
 end

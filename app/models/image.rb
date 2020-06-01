@@ -1,3 +1,3 @@
 class Image < ApplicationRecord
-  belongs_to :user, foreign_key :uploaded_by
+  belongs_to :uploaded_by, class_name: 'User'
 end

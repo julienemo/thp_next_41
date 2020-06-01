@@ -1,9 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Uploaded by:</strong>
-  <%= @image.uploaded_by %>
-</p>
+
+<%= image_tag "data:image/#{@image.extension};base64,#{@image.stream}" %>
 
 <p>
   <strong>Description:</strong>
@@ -11,14 +9,12 @@
 </p>
 
 <p>
-  <strong>Extension:</strong>
-  <%= @image.extension %>
+  <strong>Uploaded by:</strong>
+  <%= @user %>
 </p>
 
-<p>
-  <strong>Stream:</strong>
-  <%= @image.stream %>
-</p>
-
-<%= link_to 'Edit', edit_image_path(@image) %> |
-<%= link_to 'Back', images_path %>
+<% if current_user == @image.uploaded_by %>
+  <%= link_to 'Back', images_path %> |
+  <%= link_to "Change", edit_image_path(@image) %> |
+  <%= link_to "Delete", image_path(@image), method: "delete"%>
+<% end %>
