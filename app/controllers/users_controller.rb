@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  include UsersHelper
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :private_route
 
   # GET /users
   # GET /users.json
@@ -9,7 +11,11 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show; end
+  def show
+    @id = params[:id]
+    @user = User.find(@id)
+    @display_name = display_name(@user) 
+  end
 
   # GET /users/new
   def new

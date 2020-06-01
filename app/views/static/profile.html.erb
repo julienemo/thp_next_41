@@ -1,0 +1,9 @@
+<p>My profile</p>
+<p>my user Id:  <%= @user.id%></p>
+<p>my first name:  <%= @user.first_name%></p>
+<p>my last name:  <%= @user.last_name%></p>
+<p>my username:  <%= @user.username%></p>
+<p>my email:  <%= @user.email%></p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
