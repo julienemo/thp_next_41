@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<div class="single_comment">
+  <% if comment.user == current_user %>
+    <% user = "I"%>
+  <% else %>
+    <% user = comment.user.first_name%>
+  <% end %>
+  <p><strong><%= user %></strong> said on <strong><%= comment.created_at.to_date%></strong></p>
+  <p><%= comment.content%></p>
+
+  <% if current_user == comment.user%>
+    <%= link_to 'Edit', edit_image_comment_path(image, comment) %> |
+    <%= link_to 'Delete', image_comment_path(image, comment), method: "delete" %> |
+  <% end %>
+</div>

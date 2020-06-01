@@ -5,12 +5,15 @@ class ImagesController < ApplicationController
   before_action :can_change_or_delete, only: [:edit, :update, :destroy]
   
   include ImagesHelper
+  include CommentsHelper
+
   def index
     @images = Image.all
   end
 
   def show
     @current_user_can_see_image = current_user_can_see_image(@image)
+    @comment = Comment.new
   end
 
   def new
