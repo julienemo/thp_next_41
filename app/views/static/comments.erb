@@ -1,0 +1,7 @@
+<p>here are all my comments</p>
+
+<div>
+  <% @comments.each do |c|%>
+    <%= render partial: "comments/single_comment", locals: {image: c.image, comment: c}%>
+  <% end %>
+</div>
