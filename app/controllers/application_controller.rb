@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def private_route
-    unless current_user
+    if current_user
+      @user = current_user
+    else
       redirect_to new_user_session_path, :notice => 'you need to sign in to access this content'
     end
   end
