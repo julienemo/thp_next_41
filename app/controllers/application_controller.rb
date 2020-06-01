@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   protected
 
   def configure_permitted_parameters

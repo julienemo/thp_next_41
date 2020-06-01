@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= image_tag "data:image/#{@image.extension};base64,#{@image.stream}" %>
+
+<p>
+  <strong>Description:</strong>
+  <%= @image.description %>
+</p>
+
+<p>
+  <strong>Uploaded by:</strong>
+  <%= @user %>
+</p>
+
+<% if current_user == @image.uploaded_by %>
+  <%= link_to 'Back', images_path %> |
+  <%= link_to "Change", edit_image_path(@image) %> |
+  <%= link_to "Delete", image_path(@image), method: "delete"%>
+<% end %>
