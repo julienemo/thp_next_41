@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Uploaded by:</strong>
+  <%= @image.uploaded_by %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @image.description %>
+</p>
+
+<p>
+  <strong>Extension:</strong>
+  <%= @image.extension %>
+</p>
+
+<p>
+  <strong>Stream:</strong>
+  <%= @image.stream %>
+</p>
+
+<%= link_to 'Edit', edit_image_path(@image) %> |
+<%= link_to 'Back', images_path %>
