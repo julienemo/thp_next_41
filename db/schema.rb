@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_111225) do
+ActiveRecord::Schema.define(version: 2020_06_01_134809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_111225) do
     t.binary "stream", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_private", default: false
     t.index ["extension"], name: "index_images_on_extension"
     t.index ["uploaded_by_id"], name: "index_images_on_uploaded_by_id"
   end

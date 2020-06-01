@@ -1,0 +1,15 @@
+<div class="single_image">
+  <% if !image.is_private || (image.is_private && current_user == image.uploaded_by) %>
+    <%= image_tag "data:image/#{image.extension};base64,#{image.stream}"%>
+    <p><strong>Description:</strong><%= image.description %></p>
+    <p><strong>Uploaded by:</strong><%= image.uploaded_by.username %></p>
+
+    <% if image.is_private%>
+      <p>Only you can see this</p>
+    <% end %>
+    <% if current_user == image.uploaded_by %>
+      <%= link_to "Change", edit_image_path(image) %> |
+      <%= link_to "Delete", image_path(image), method: "delete"%>|
+    <% end %>
+  <% end %>
+</div>

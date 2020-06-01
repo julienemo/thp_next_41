@@ -12,13 +12,18 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :stream, "Choose an image" %>
+    <%= form.file_field :stream %>
+  </div>
+
+  <div class="field">
     <%= form.label :description %>
     <%= form.text_field :description %>
   </div>
 
-  <div class="field">
-    <%= form.label :stream %>
-    <%= form.file_field :stream %>
+  <div class="field checkbox_field">
+    <%= form.label :is_private, "make this private" %>
+    <%= form.check_box :is_private, checked_value: true, unchecked_value: false %>
   </div>
 
   <div class="actions">
