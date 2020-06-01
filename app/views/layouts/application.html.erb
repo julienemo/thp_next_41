@@ -22,7 +22,7 @@
         <% if current_user %>
           <p>There is a user</p>
           <p>username : <%= current_user.username%></p>
-          <%= link_to "Profile", user_path(current_user), class: "nav-item nav-link"%>
+          <%= link_to "Profile", profile_path, class: "nav-item nav-link"%>
           <%= link_to "Sign Out", destroy_user_session_path(current_user), method: "delete", class: "nav-item nav-link"%>
         <% else %>
           <p>There is no user</p>
