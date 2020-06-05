@@ -10,6 +10,10 @@ gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 gem 'webpacker', '~> 5.x'
 
+# this is a websocket-driver dependency
+# earlier versions present vulnerability
+gem 'websocket-extensions', '>= 0.1.5'
+
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'jbuilder', '~> 2.7'
 gem 'sass-rails', '>= 6'
